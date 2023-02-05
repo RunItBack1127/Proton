@@ -1,13 +1,11 @@
 import * as TWEEN from '@tweenjs/tween.js';
 import {
     AmbientLight,
-    AxesHelper,
     Box3,
     DirectionalLight,
     Group,
     Mesh,
     MeshBasicMaterial,
-    MeshLambertMaterial,
     Object3D,
     PerspectiveCamera,
     Raycaster,
@@ -29,7 +27,7 @@ const DEFAULT_PERSPECTIVE_DISTANCE = 1.65;
 const NUM_POINTS_PER_TRIANGLE = 3;
 const ZOOM_ANIMATION_DURATION = 50;
 
-function onModelLoaded( model: Object3D ) {
+function displayModel( model: Object3D ) {
 
     const protonScene = new Scene();
     protonScene.background = null;
@@ -213,4 +211,4 @@ function adjustProtonCamera( animationDuration: number ) {
     .start();
 }
 
-export { onModelLoaded, resetProtonCamera };
+export { displayModel, resetProtonCamera };

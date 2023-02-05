@@ -4,13 +4,13 @@ import OptionsPanel from './components/OptionsPanel.vue';
 import ViewerPropertiesPanel from './components/ViewerPropertiesPanel.vue';
 
 import { ModelLoadCompleteEvent } from './util/types/ModelLoadCompleteEvent';
-import { onModelLoaded } from './util/graphics/GraphicsBundle';
+import { displayModel } from './util/graphics/GraphicsBundle';
 
 window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
   const event = e as ModelLoadCompleteEvent;
   const model = event.model;
 
-  onModelLoaded( model );
+  displayModel( model );
 });
 
 // Add event for model attributes instead of store
