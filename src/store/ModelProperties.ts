@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-const modelPropertiesStore = defineStore('properties', {
+const useModelPropertiesStore = defineStore('properties', {
     state: () => {
         return {
             viewerBundle: null
@@ -13,4 +13,4 @@ const modelPropertiesStore = defineStore('properties', {
     }
 });
 
-export default modelPropertiesStore;
+export { useModelPropertiesStore };

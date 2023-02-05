@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 
-const attributeStore = defineStore('attributes', {
+const useModelAttributesStore = defineStore('attributes', {
     state: () => {
         return {
             currentAnimationId: 0,
@@ -25,4 +25,4 @@ const attributeStore = defineStore('attributes', {
     }
 });
 
-export default attributeStore;
+export { useModelAttributesStore };
