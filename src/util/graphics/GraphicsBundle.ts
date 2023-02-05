@@ -1,6 +1,7 @@
 import * as TWEEN from '@tweenjs/tween.js';
 import {
     AmbientLight,
+    AxesHelper,
     Box3,
     DirectionalLight,
     Group,
@@ -42,12 +43,7 @@ function onModelLoaded( model: Object3D ) {
     });
     protonScene.add( mainLight, spotLight );
 
-    const protonCamera = new PerspectiveCamera(
-        45,
-        window.innerWidth / window.innerHeight,
-        1,
-        1000
-    );
+    const protonCamera = new PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 0.1, 1000 );
     
     const renderer = new WebGLRenderer({
         alpha: true,
@@ -95,7 +91,7 @@ function onModelLoaded( model: Object3D ) {
         color: 0xffffff
     }));
     protonGroup.add( protonCameraSphere );
-
+    
     protonScene.add( protonGroup );
 
     let numVertices = 0;
@@ -139,15 +135,20 @@ function onModelLoaded( model: Object3D ) {
         renderer.setSize( window.innerWidth, window.innerHeight );
         renderer.render( protonScene, protonCamera );
     }
+    resize();
 
     function animate() {
         const animationId = requestAnimationFrame( animate );
         modelAttributesStore.currentAnimationId = animationId;
-
         controls.update();
-        spotLight.position.copy( protonCamera.position );
+
+        const lightPos = new Vector3();
+        lightPos.set( protonCamera.position.x, protonCamera.position.y, protonCamera.position.z );
+        spotLight.position.copy( lightPos );
 
         renderer.render( protonScene, protonCamera );
+
+        TWEEN.update();
     }
 
     const previousAnimationId = modelAttributesStore.currentAnimationId;
@@ -206,10 +207,8 @@ function adjustProtonCamera( animationDuration: number ) {
         );
     })
     .onComplete(() => {
-        protonCameraSphere.material = new MeshLambertMaterial({
-            transparent: true,
-            opacity: 0.0
-        });
+        const protonGroup = protonScene.children[ 2 ];
+        protonGroup.remove( protonCameraSphere );
     })
     .start();
 }
