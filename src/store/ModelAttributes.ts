@@ -22,6 +22,20 @@ const useModelAttributesStore = defineStore('attributes', {
         setLoadDuration(loadDuration: number) {
             this.loadDuration = loadDuration;
         }
+    },
+    getters: {
+        getAnimationId(): number {
+            return this.currentAnimationId
+        },
+        getNumVertices(): number {
+            return this.numVertices
+        },
+        getNumTriangles(): number {
+            return this.numTriangles
+        },
+        getLoadDuration(): number {
+            return this.loadDuration
+        }
     }
 });
 
