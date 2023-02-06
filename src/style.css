@@ -38,11 +38,6 @@ h1 {
 
 button {
   cursor: pointer;
-  transition: border-color 250ms ease;
-}
-
-button:hover {
-  border-color: rgba(100, 100, 100, 1.0);
 }
 
 .card {
