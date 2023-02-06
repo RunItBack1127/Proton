@@ -6,8 +6,6 @@ import ViewerPropertiesPanel from './components/ViewerPropertiesPanel.vue';
 import { ModelLoadCompleteEvent } from './util/types/ModelLoadCompleteEvent';
 import { displayModel } from './util/graphics/GraphicsBundle';
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
 window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
   const event = e as ModelLoadCompleteEvent;
   const model = event.model;
@@ -54,5 +52,11 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
 
 #ModelObfuscator.show {
   display: block;
+}
+
+.OptionsPanel {
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 </style>
