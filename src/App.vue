@@ -14,12 +14,6 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
 
   displayModel( model );
 });
-
-const loader = new GLTFLoader();
-loader.load('https://raw.githubusercontent.com/RunItBack1127/bumbox-cas-website/main/src/assets/models/UE_MEGABOOM.gltf', (model) => {
-  window.dispatchEvent(new ModelLoadCompleteEvent(model.scene));
-});
-
 // Add event for model attributes instead of store
 </script>
 
