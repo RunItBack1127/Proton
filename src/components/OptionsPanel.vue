@@ -58,7 +58,7 @@ nav {
         svg {
             width: 30px;
             height: 30px;
-            opacity: 0.5;
+            opacity: 0.25;
         }
     }
 
