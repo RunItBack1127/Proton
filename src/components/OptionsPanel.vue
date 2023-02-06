@@ -55,7 +55,7 @@ export default defineComponent({
     </nav>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 nav {
     width: 100%;
     height: 100%;
