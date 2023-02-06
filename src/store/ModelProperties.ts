@@ -12,11 +12,6 @@ const useModelPropertiesStore = defineStore('properties', {
                 cameraSphere: new Mesh()
             }
         }
-    },
-    actions: {
-        setViewerBundle(viewerBundle: ViewerBundle) {
-            this.viewerBundle = viewerBundle;
-        }
     }
 });
 
