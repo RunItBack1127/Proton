@@ -56,11 +56,12 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
 
 .OptionsPanel {
   position: absolute;
-  top: 30px;
+  top: 25px;
   left: 45px;
+  width: 260px;
+  height: 80px;
   border-radius: 25%;
   z-index: 1000;
-  width: 275px;
   box-shadow: rgba(100, 100, 111, 0.25) 0px 7px 29px 0px;
 }
 </style>
