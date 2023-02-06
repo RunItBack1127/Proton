@@ -1,16 +1,26 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import ObjectInfoWidget from './components/ObjectInfoWidget.vue';
 import OptionsPanel from './components/OptionsPanel.vue';
 import ViewerPropertiesPanel from './components/ViewerPropertiesPanel.vue';
+import LoadingScreen from './components/LoadingScreen.vue';
 
 import { ModelLoadCompleteEvent } from './util/types/ModelLoadCompleteEvent';
 import { displayModel } from './util/graphics/GraphicsBundle';
+import { useAppPropertiesStore } from './store/AppProperties';
+
+const appProperties = useAppPropertiesStore();
+const isLoadingModel = computed(() => appProperties.isLoadingModel);
 
 window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
   const event = e as ModelLoadCompleteEvent;
   const model = event.model;
 
   displayModel( model );
+
+  appProperties.isLoadingModel = false;
+  appProperties.isDisplayingModel = true;
+
 });
 // Add event for model attributes instead of store
 </script>
@@ -21,7 +31,7 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
   <div class="OptionsPanel">
     <options-panel />
   </div>
-  <div class="LoadingScreen">
+  <div v-show="isLoadingModel" class="LoadingScreen">
     <loading-screen />
   </div>
   <div class="ViewerPropertiesPanel">
@@ -63,7 +73,7 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
   left: 0;
   width: 100vw;
   height: 100vh;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   background: #fff;

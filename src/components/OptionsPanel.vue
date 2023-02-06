@@ -26,7 +26,7 @@ export default defineComponent({
             this.setIsLoadingModel( true );
 
             if( files ) {
-                const inputFile = files[ 0 ];
+                // const inputFile = files[ 0 ];
 
                 const loader = new GLTFLoader();
                 loader.load( 'https://raw.githubusercontent.com/RunItBack1127/bumbox-cas-website/main/src/assets/models/UE_MEGABOOM.gltf', (model) => {
