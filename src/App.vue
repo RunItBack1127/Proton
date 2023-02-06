@@ -18,12 +18,12 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
 <template>
   <div id="ProtonModelViewer"></div>
   <div id="ModelObfuscator"></div>
-  <nav class="OptionsPanel">
+  <div class="OptionsPanel">
     <options-panel />
-  </nav>
-  <aside class="ViewerPropertiesPanel">
+  </div>
+  <div class="ViewerPropertiesPanel">
     <viewer-properties-panel />
-  </aside>
+  </div>
   <div class="ObjectInfoWidget">
     <object-info-widget />
   </div>
@@ -56,7 +56,11 @@ window.addEventListener('PROTON_ModelLoadComplete', (e: Event) => {
 
 .OptionsPanel {
   position: absolute;
-  top: 20px;
-  left: 20px;
+  top: 30px;
+  left: 45px;
+  border-radius: 25%;
+  z-index: 1000;
+  width: 275px;
+  box-shadow: rgba(100, 100, 111, 0.25) 0px 7px 29px 0px;
 }
 </style>
