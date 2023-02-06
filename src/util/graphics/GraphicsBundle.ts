@@ -130,7 +130,7 @@ function displayModel( model: Object3D ) {
         boundingSphere: protonModelBoundingSphere,
         cameraSphere: protonCameraSphere
     };
-    modelPropertiesStore.setViewerBundle( viewerBundle );
+    modelPropertiesStore.viewerBundle = viewerBundle;
 
     function resize() {
         protonCamera.aspect = window.innerWidth / window.innerHeight;
