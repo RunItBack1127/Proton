@@ -6,6 +6,7 @@ import {
     Group,
     Mesh,
     MeshBasicMaterial,
+    MeshLambertMaterial,
     Object3D,
     PerspectiveCamera,
     Raycaster,
@@ -85,12 +86,16 @@ function displayModel( model: Object3D ) {
     protonGroup.add( model );
 
     const sphereGeometry = new SphereGeometry( DEFAULT_PERSPECTIVE_DISTANCE * protonModelBoundingSphere.radius );
-    const protonCameraSphere = new Mesh( sphereGeometry, new MeshBasicMaterial({
-        color: 0xffffff
+    const protonCameraSphere = new Mesh( sphereGeometry, new MeshLambertMaterial({
+        transparent: true,
+        opacity: 0.0
     }));
-    protonGroup.add( protonCameraSphere );
-    
-    protonScene.add( protonGroup );
+
+    protonScene.add( protonGroup, protonCameraSphere );
+
+    // TODO Replace with state for showing model obfuscator
+    const modelObfuscator = document.querySelector('#ModelObfuscator');
+    modelObfuscator?.classList.add("show");
 
     let numVertices = 0;
     let numTriangles = 0;
@@ -205,8 +210,8 @@ function adjustProtonCamera( animationDuration: number ) {
         );
     })
     .onComplete(() => {
-        const protonGroup = protonScene.children[ 2 ];
-        protonGroup.remove( protonCameraSphere );
+        const modelObfuscator = document.querySelector('#ModelObfuscator');
+        modelObfuscator?.classList.remove("show");
     })
     .start();
 }
