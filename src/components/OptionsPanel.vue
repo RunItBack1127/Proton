@@ -5,6 +5,8 @@ import { ModelLoadCompleteEvent } from '../util/types/ModelLoadCompleteEvent';
 
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
+import { getAssociatedLoader } from '../util/load/upload';
+
 export default defineComponent({
     name: 'OptionsPanel',
     data() {
@@ -23,16 +25,23 @@ export default defineComponent({
             const target = e.target as HTMLInputElement;
             const files = target.files;
 
-            this.setIsLoadingModel( true );
-
             if( files ) {
-                // const inputFile = files[ 0 ];
+                const inputFile = files[ 0 ];
+                const loader = getAssociatedLoader( inputFile.name );
 
-                const loader = new GLTFLoader();
-                loader.load( 'https://raw.githubusercontent.com/RunItBack1127/bumbox-cas-website/main/src/assets/models/UE_MEGABOOM.gltf', (model) => {
-                    window.dispatchEvent(new ModelLoadCompleteEvent(model.scene));
-                });
+                console.log( loader );
             }
+
+            // this.setIsLoadingModel( true );
+
+            // if( files ) {
+            //     // const inputFile = files[ 0 ];
+
+            //     const loader = new GLTFLoader();
+            //     loader.load( 'https://raw.githubusercontent.com/RunItBack1127/bumbox-cas-website/main/src/assets/models/UE_MEGABOOM.gltf', (model) => {
+            //         window.dispatchEvent(new ModelLoadCompleteEvent(model.scene));
+            //     });
+            // }
         }
     }
 });
