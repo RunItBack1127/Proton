@@ -83,7 +83,7 @@ nav {
         svg {
             width: 30px;
             height: 30px;
-            opacity: 0.25;
+            opacity: 0.1;
             pointer-events: none;
         }
     }
