@@ -1,8 +1,7 @@
 import { Mesh, PerspectiveCamera, Scene, Sphere } from "three"
 
 export interface ViewerBundle {
-    scene: Scene,
-    camera: PerspectiveCamera,
-    boundingSphere: Sphere,
-    cameraSphere: Mesh
+    scene: Scene | null,
+    camera: PerspectiveCamera | null,
+    cameraSphere: Mesh | null
 };

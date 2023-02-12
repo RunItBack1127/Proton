@@ -3,9 +3,10 @@ import { computed, defineComponent } from 'vue';
 import { useAppPropertiesStore } from '../store/AppProperties';
 import { ModelLoadCompleteEvent } from '../util/types/ModelLoadCompleteEvent';
 
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import type { Object3D } from 'three';
 
 import { getAssociatedLoader } from '../util/load/upload';
+import { displayModel } from '../util/graphics/GraphicsBundle';
 
 export default defineComponent({
     name: 'OptionsPanel',
@@ -16,6 +17,9 @@ export default defineComponent({
             isDisplayingModel: computed(() => appProperties.isDisplayingModel),
             setIsLoadingModel: (isLoadingModel: boolean) => {
                 appProperties.isLoadingModel = isLoadingModel
+            },
+            setIsDisplayingModel: (isDisplayingModel: boolean) => {
+                appProperties.isDisplayingModel = isDisplayingModel;
             }
         }
     },
@@ -29,19 +33,14 @@ export default defineComponent({
                 const inputFile = files[ 0 ];
                 const loader = getAssociatedLoader( inputFile.name );
 
-                console.log( loader );
+                this.setIsLoadingModel(true);
+
+                loader.load( inputFile, (model: Object3D) => {
+                    displayModel( model );
+                    this.setIsLoadingModel(false);
+                    this.setIsDisplayingModel(true);
+                } );
             }
-
-            // this.setIsLoadingModel( true );
-
-            // if( files ) {
-            //     // const inputFile = files[ 0 ];
-
-            //     const loader = new GLTFLoader();
-            //     loader.load( 'https://raw.githubusercontent.com/RunItBack1127/bumbox-cas-website/main/src/assets/models/UE_MEGABOOM.gltf', (model) => {
-            //         window.dispatchEvent(new ModelLoadCompleteEvent(model.scene));
-            //     });
-            // }
         }
     }
 });

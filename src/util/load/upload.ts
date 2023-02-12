@@ -1,7 +1,8 @@
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { STLLoader } from 'three/examples/jsm/loaders/STLLoader';
-import { PLYLoader } from 'three/examples/jsm/loaders/PLYLoader';
+import { CustomLoader } from '../../loaders/CustomLoader';
+import { OBJLoader } from '../../loaders/OBJLoader';
+import { GLTFLoader } from '../../loaders/GLTFLoader';
+import { STLLoader } from '../../loaders/STLLoader';
+import { PLYLoader } from '../../loaders/PLYLoader';
 
 type Loader = typeof OBJLoader | typeof GLTFLoader | typeof STLLoader | typeof PLYLoader;
 
@@ -16,7 +17,7 @@ function getFileExtension( filename: String ) {
     return filename.slice(filename.lastIndexOf('.') + 1, filename.length);
 }
 
-function getAssociatedLoader( filename: string ) {
+function getAssociatedLoader( filename: string ): CustomLoader {
     const extension = getFileExtension( filename );
     const loader = EXTENSIONS_TO_LOADERS.get(extension);
 

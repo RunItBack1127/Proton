@@ -5,7 +5,6 @@ import {
     DirectionalLight,
     Group,
     Mesh,
-    MeshBasicMaterial,
     MeshLambertMaterial,
     Object3D,
     PerspectiveCamera,
@@ -28,7 +27,27 @@ const DEFAULT_PERSPECTIVE_DISTANCE = 1.75;
 const NUM_POINTS_PER_TRIANGLE = 3;
 const ZOOM_ANIMATION_DURATION = 50;
 
+type ProtonWindow = (Window & typeof globalThis) & {
+    PROTON: ViewerBundle
+};
+
+function initializeViewerBundle() {
+    const protonWindow = window as ProtonWindow;
+    protonWindow.PROTON = {
+        scene: null,
+        camera: null,
+        cameraSphere: null
+    };
+    return protonWindow.PROTON;
+}
+
+function getViewerBundle() {
+    return (window as ProtonWindow).PROTON;
+}
+
 function displayModel( model: Object3D ) {
+
+    const viewerBundle = initializeViewerBundle();
 
     const protonScene = new Scene();
     protonScene.background = null;
@@ -120,17 +139,12 @@ function displayModel( model: Object3D ) {
             }
         }
     });
-
-    const modelPropertiesStore = useModelPropertiesStore();
+    
     const modelAttributesStore = useModelAttributesStore();
 
-    const viewerBundle: ViewerBundle = {
-        scene: protonScene,
-        camera: protonCamera,
-        boundingSphere: protonModelBoundingSphere,
-        cameraSphere: protonCameraSphere
-    };
-    modelPropertiesStore.viewerBundle = viewerBundle;
+    viewerBundle.scene = protonScene;
+    viewerBundle.camera = protonCamera;
+    viewerBundle.cameraSphere = protonCameraSphere;
 
     function resize() {
         protonCamera.aspect = window.innerWidth / window.innerHeight;
@@ -174,12 +188,11 @@ function resetProtonCamera() {
 
 function adjustProtonCamera( animationDuration: number ) {
 
-    const modelPropertiesStore = useModelPropertiesStore();
-    const viewerBundle = modelPropertiesStore.viewerBundle;
+    const viewerBundle = getViewerBundle();
 
-    const protonScene = viewerBundle.scene;
-    const protonCamera = viewerBundle.camera;
-    const protonCameraSphere = viewerBundle.cameraSphere;
+    const protonScene = viewerBundle.scene!;
+    const protonCamera = viewerBundle.camera!;
+    const protonCameraSphere = viewerBundle.cameraSphere!;
 
     const raycaster = new Raycaster();
     const pointer = new Vector2(0, 0);
@@ -189,7 +202,7 @@ function adjustProtonCamera( animationDuration: number ) {
     const sphereIntersect = intersects.filter((intersect) => {
         return intersect.object === protonCameraSphere;
     });
-    const spherePoint = sphereIntersect[0].point.clone().multiplyScalar( 1.75 );
+    const spherePoint = sphereIntersect[0].point.clone().multiplyScalar( DEFAULT_PERSPECTIVE_DISTANCE );
 
     new TWEEN.Tween({
         x: protonCamera.position.x,
